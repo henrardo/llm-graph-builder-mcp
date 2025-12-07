@@ -8,7 +8,7 @@ This [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server enab
 
 **Perfect for:** Research, Zotero integrations, academic papers, content analysis, and building structured knowledge from unstructured sources.
 
-## 📦 What's Included
+## What's Included
 
 This repository is a **complete, ready-to-use package** containing:
 - **llm_graph_builder_mcp/** - The MCP server code
@@ -262,9 +262,9 @@ This repository includes `llm-graph-builder` from **June 24, 2025** (commit `4d7
 ### Using the Included Backend (Recommended)
 
 The included backend is frozen at a known-good version. This ensures:
-- ✅ Everything works out of the box
-- ✅ No compatibility issues
-- ✅ Predictable behavior
+- Everything works out of the box
+- No compatibility issues
+- Predictable behavior
 
 ### Using a Newer Backend Version
 
