@@ -10,9 +10,9 @@ This [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server enab
 
 ## What's Included
 
-This repository is a **complete, ready-to-use package** containing:
+This repository is a complete, ready-to-use package containing:
 - **llm_graph_builder_mcp/** - The MCP server code
-- **llm-graph-builder/** - Neo4j's LLM Graph Builder backend (June 24, 2025, commit `4d7bb5e8`)
+- **llm-graph-builder/** - Neo4j's LLM Graph Builder backend (June 24, 2025, commit 4d7bb5e8)
 
 Both are included so you get a tested, working version out of the box. Just clone once and you're ready to go!
 
@@ -27,7 +27,7 @@ Both are included so you get a tested, working version out of the box. Just clon
 - **Academic mode**: Extract citations, authors, journals, and bibliographic data
 - **Custom schemas**: Define allowed entity types and relationships
 - **Community detection**: Find clusters and groups in your knowledge graph
-- **Zero setup**: Works with unmodified [llm-graph-builder](https://github.com/neo4j-labs/llm-graph-builder) backend
+- **Zero modifications**: Works with unmodified [llm-graph-builder](https://github.com/neo4j-labs/llm-graph-builder) backend
 - **Local processing**: Your data, your Neo4j instance, your control
 
 ## Quick Start
@@ -44,7 +44,7 @@ Both are included so you get a tested, working version out of the box. Just clon
 
 ```bash
 # Clone the entire project (includes both MCP and backend)
-git clone https://github.com/your-username/llm-graph-builder-mcp.git
+git clone https://github.com/henrardo/llm-graph-builder-mcp.git
 cd llm-graph-builder-mcp
 ```
 
@@ -89,14 +89,14 @@ uv pip install -r requirements.txt
 uvicorn score:app --reload --port 8000
 ```
 
-**Keep this terminal running!** The backend must be running for the MCP to work.
+**Keep this terminal running.** The backend must be running for the MCP to work.
 
 ### Step 3: Install the MCP
 
 Open a **new terminal** (keep the backend running in the first one):
 
 ```bash
-# Navigate to the MCP directory
+# Navigate back to the MCP directory
 cd llm-graph-builder-mcp
 
 # Install the MCP
@@ -137,13 +137,13 @@ Add this configuration:
 - Replace `/absolute/path/to/` with the full path to your `llm-graph-builder-mcp` directory
   - Run `pwd` in the `llm-graph-builder-mcp` directory to get this path
   - Example: `/Users/yourname/projects/llm-graph-builder-mcp`
-- Use the **same credentials** as in your backend `.env` file
+- Use the same credentials as in your backend `.env` file
 
 ### Step 5: Restart Claude Desktop
 
-**Completely quit and restart Claude Desktop** for the changes to take effect.
+Completely quit and restart Claude Desktop for the changes to take effect.
 
-### Step 6: Test It!
+### Step 6: Test It
 
 In Claude Desktop, try:
 ```
@@ -188,10 +188,10 @@ https://en.wikipedia.org/wiki/Renaissance
 
 ## Querying the Graph
 
-Use the separate [mcp-neo4j-cypher](https://github.com/neo4j/mcp-neo4j) server to query your knowledge graph:
+This MCP builds graphs. To query them, use the separate [mcp-neo4j-cypher](https://github.com/neo4j/mcp-neo4j) server.
 
+After building a graph, ask Claude:
 ```
-# After building a graph, ask Claude:
 "What entities are connected to Arthur Dent?"
 "Show me all the citations in my research papers"
 "Find communities in the knowledge graph"
@@ -199,7 +199,7 @@ Use the separate [mcp-neo4j-cypher](https://github.com/neo4j/mcp-neo4j) server t
 
 ## Tool Reference
 
-### `build_knowledge_graph_from_url`
+### build_knowledge_graph_from_url
 
 Extracts entities and relationships from a URL and builds a knowledge graph.
 
@@ -240,10 +240,10 @@ Claude Desktop
 
 This MCP is perfect for academic research workflows:
 
-1. **Export PDF URLs** from your Zotero library
-2. **Ask Claude** to process them with bibliographic extraction
-3. **Query relationships** between papers, authors, and concepts
-4. **Discover connections** in your research
+1. Export PDF URLs from your Zotero library
+2. Ask Claude to process them with bibliographic extraction
+3. Query relationships between papers, authors, and concepts
+4. Discover connections in your research
 
 Example:
 ```
@@ -255,7 +255,7 @@ Example:
 Then show me how they cite each other and what common themes they share."
 ```
 
-## 🔄 Backend Version & Updates
+## Backend Version & Updates
 
 This repository includes `llm-graph-builder` from **June 24, 2025** (commit `4d7bb5e8`). This version is tested and fully compatible with the MCP.
 
@@ -280,7 +280,7 @@ git clone https://github.com/neo4j-labs/llm-graph-builder.git
 # Follow the same setup steps in Step 2
 ```
 
-**Note:** Newer versions *should* work (the MCP uses standard endpoints), but haven't been tested. If you encounter issues, revert to the included version.
+**Note:** Newer versions should work (the MCP uses standard endpoints), but haven't been tested. If you encounter issues, revert to the included version.
 
 ## Troubleshooting
 
@@ -306,7 +306,7 @@ LLM_MODEL_CONFIG_openai_gpt_4.1=gpt-4-turbo-2024-04-09,YOUR-API-KEY
 ### Backend shows "Connection refused"
 - Ensure the backend is running on port 8000
 - Check `GRAPH_BUILDER_URL` in Claude config matches the backend URL
-- Backend must be running **before** you use the MCP
+- Backend must be running before you use the MCP
 
 ### Empty graph / few entities
 - Enable `extract_bibliographic_info` for academic papers
@@ -314,11 +314,19 @@ LLM_MODEL_CONFIG_openai_gpt_4.1=gpt-4-turbo-2024-04-09,YOUR-API-KEY
 - Verify Neo4j connection in backend `.env`
 - For PDFs: URL must be directly accessible (no authentication required)
 
+### Cache issues after updates
+```bash
+# Clear uvx cache
+uv cache clean llm-graph-builder-mcp --force
+
+# Completely quit and restart Claude Desktop
+```
+
 ## Development
 
 ```bash
 # Install in development mode
-git clone https://github.com/your-username/llm-graph-builder-mcp.git
+git clone https://github.com/henrardo/llm-graph-builder-mcp.git
 cd llm-graph-builder-mcp
 uv pip install -e .
 ```
@@ -326,7 +334,7 @@ uv pip install -e .
 ## How It Works
 
 ### PDF URLs
-The MCP automatically detects PDF URLs, downloads them, and uploads to the backend for full-text extraction using PyMuPDF. No binary garbage, just clean text!
+The MCP automatically detects PDF URLs, downloads them, and uploads to the backend for full-text extraction using PyMuPDF. No binary garbage, just clean text.
 
 ### Academic Extraction
 When `extract_bibliographic_info=true`, the MCP instructs the LLM to specifically extract:
@@ -343,21 +351,31 @@ allowed_relationships: "Person,FOUNDED,Organization,Organization,PRODUCES,Produc
 ```
 
 ### Zero Backend Modifications
-This MCP works with the **unmodified** llm-graph-builder. It uses clever compatibility tricks (like sending a space character for optional parameters) to work seamlessly with the original backend.
+This MCP works with the unmodified llm-graph-builder backend. It uses compatibility tricks (like sending a space character for optional parameters) to work seamlessly with the original code.
+
+## Security
+
+**Never commit:**
+- API keys (OpenAI, etc.)
+- Database passwords
+- Real Neo4j URIs
+
+All credentials should be in `.env` files or Claude Desktop config (both gitignored).
+
+## License
+
+Apache License 2.0 - see [LICENSE](LICENSE) file for details.
+
+This project includes the Neo4j LLM Graph Builder, which is also licensed under Apache License 2.0.
 
 ## Contributing
 
 Contributions welcome! This project aims to be a clean wrapper with zero backend modifications required.
 
+Open an issue or pull request on [GitHub](https://github.com/henrardo/llm-graph-builder-mcp).
+
 ## Credits
 
-- [Neo4j LLM Graph Builder](https://github.com/neo4j-labs/llm-graph-builder)
-- [FastMCP](https://github.com/jlowin/fastmcp)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-
-## Links
-
-- **Issues**: [GitHub Issues](https://github.com/your-username/llm-graph-builder-mcp/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/llm-graph-builder-mcp/discussions)
-- **Backend**: [llm-graph-builder](https://github.com/neo4j-labs/llm-graph-builder)
-- **Query MCP**: [mcp-neo4j-cypher](https://github.com/neo4j/mcp-neo4j)
+- [Neo4j LLM Graph Builder](https://github.com/neo4j-labs/llm-graph-builder) by Neo4j, Inc.
+- [FastMCP](https://github.com/jlowin/fastmcp) by Marvin
+- [Model Context Protocol](https://modelcontextprotocol.io/) by Anthropic
