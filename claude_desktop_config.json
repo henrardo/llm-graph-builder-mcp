@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "llm-graph-builder": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "/absolute/path/to/llm-graph-builder-mcp",
+        "llm-graph-builder-mcp"
+      ],
+      "env": {
+        "NEO4J_URI": "neo4j+s://your-instance.databases.neo4j.io",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "your-password",
+        "NEO4J_DATABASE": "neo4j",
+        "GRAPH_BUILDER_URL": "http://localhost:8000"
+      }
+    },
+    "neo4j-cypher": {
+      "command": "uvx",
+      "args": ["mcp-neo4j-cypher"],
+      "env": {
+        "NEO4J_URI": "neo4j+s://your-instance.databases.neo4j.io",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "your-password",
+        "NEO4J_DATABASE": "neo4j"
+      }
+    }
+  }
+}
